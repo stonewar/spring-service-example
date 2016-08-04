@@ -2,6 +2,7 @@ package ch.example.service;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,16 +27,25 @@ public class CdServiceTest {
 	@Before
 	public void testIsInitilized() {
 		assertNotNull(cdService);
+		Cd cd = new Cd();
+		cd.setName("The power of Spring");
+		Cd created = cdService.create(cd);
+		assertEquals(cd.getName(), created.getName());
+		assertEquals(cd, created);
+		assertNotSame(cd, created);
 	}
 	
+	
 	@Test
-	public void testCreateCd(){
-		Cd cd1 = new Cd();
-		cd1.setName("The power of Spring");
-		Cd created = cdService.create(cd1);
-		assertEquals(cd1.getName(), created.getName());
-		assertEquals(cd1, created);
-		assertNotSame(cd1, created);
+	public void testfindAll(){
+		//Update this test
+		boolean found = false;
+		for(Iterator<Cd> it = cdService.findAll(); it.hasNext();){
+			found = true;
+			break;
+		}
+		assertTrue(found);
 	}
-
+	
+	
 }
